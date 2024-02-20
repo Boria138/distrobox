@@ -1,5 +1,5 @@
 diff --git a/distrobox-init b/distrobox-init
-index f2153b9..8a3dd7e 100755
+index f2153b9..6bfdc3d 100755
 --- a/distrobox-init
 +++ b/distrobox-init
 @@ -1567,7 +1567,9 @@ if [ "${nvidia}" -eq 1 ]; then
@@ -7,7 +7,7 @@ index f2153b9..8a3dd7e 100755
  		if [ "${type}" = "link" ]; then
  			mkdir -p "$(dirname "${dest_file}")"
 -			cp -d "${nvidia_lib}" "${dest_file}"
-+			if [[ $(md5sum "${nvidia_lib}" | awk '{print $1}') != $(md5sum "${dest_file}" | awk '{print $1}') ]]; then
++			if [ "$(md5sum "${nvidia_lib}" | cut -d ' ' -f 1)" != "$(md5sum "${dest_file}" | cut -d ' ' -f 1)" ]; then
 +				cp -d "${nvidia_lib}" "${dest_file}"
 +			fi
  			continue
