@@ -7,14 +7,18 @@ Group: System/Configuration/Other
 Url: https://github.com/89luca89/distrobox
 # Source-url: https://github.com/89luca89/distrobox/archive/%version.tar.gz?/%name-%version.tar.gz
 Source: %name-%version.tar
-Patch: distrobox-1.6.0.1-alt-fix-dependency.patch
-Patch2: distrobox-1.6.0.1-alt-fix-nvidia-integration.patch
-Patch3: distrobox-1.6.0.1-upstream-fix-sudo-password.patch
+Patch: distrobox-1.6.0.1-alt-fix-nvidia-integration.patch
+Patch2: distrobox-1.6.0.1-upstream-fix-sudo-password.patch
 
-BuildRequires: /usr/bin/convert
+BuildRequires: %_bindir/convert
 
-Requires: podman systemd
+Requires: podman systemd %_bindir/cut
 %filter_from_requires /\/\(usr\/\)\{0,1\}lib\/systemd\/systemd/d
+%filter_from_requires /pacman/d
+%filter_from_requires /dnf/d
+%filter_from_requires /apt/d
+%filter_from_requires /\/sbin\/init/d
+%filter_from_requires /\/bin\/sh/d
 
 %description
 Use any linux distribution inside your terminal. Distrobox uses podman
@@ -27,7 +31,6 @@ external usb devices and graphical apps (X11/Wayland) and audio.
 %setup
 %patch -p1
 %patch2 -p1
-%patch3 -p1
 
 %build
 %install
@@ -68,7 +71,6 @@ done
 %_iconsdir/hicolor/*/apps/terminal-distrobox-icon.png
 %_iconsdir/hicolor/scalable/apps/terminal-distrobox-icon.svg
 %_datadir/bash-completion/completions/%{name}*
-
 
 %changelog
 * Tue Feb 20 2024 Boris Yumankulov <boriabloger@altlinux.org> 1.6.0.1-alt1

@@ -7,7 +7,7 @@ index f2153b9..6bfdc3d 100755
  		if [ "${type}" = "link" ]; then
  			mkdir -p "$(dirname "${dest_file}")"
 -			cp -d "${nvidia_lib}" "${dest_file}"
-+			if [ "$(md5sum "${nvidia_lib}" | cut -d ' ' -f 1)" != "$(md5sum "${dest_file}" | cut -d ' ' -f 1)" ]; then
++			if [ $(md5sum "${nvidia_lib}" | cut -d ' ' -f 1) != $(md5sum "${dest_file}" | cut -d ' ' -f 1) ] ; then
 +				cp -d "${nvidia_lib}" "${dest_file}"
 +			fi
  			continue
